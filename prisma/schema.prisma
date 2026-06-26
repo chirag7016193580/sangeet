@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               String             @id @default(uuid())
+  username         String             @unique
+  email            String             @unique
+  passwordHash     String
+  createdAt        DateTime           @default(now())
+  listeningHistory ListeningHistory[]
+}
+
+model Artist {
+  id            String   @id @default(uuid())
+  name          String
+  image         String
+  listeners     String
+  listenerCount Int
+  verified      Boolean
+  biography     String
+  popularity    Int
+  country       String
+  genres        String   // comma-separated
+  albums        Album[]
+  songs         Song[]
+}
+
+model Album {
+  id          String   @id @default(uuid())
+  name        String
+  artistId    String
+  artist      Artist   @relation(fields: [artistId], references: [id])
+  image       String
+  year        String
+  genre       String
+  popularity  Int
+  tracksCount Int
+  songs       Song[]
+}
+
+model Song {
+  id               String             @id @default(uuid())
+  title            String
+  artistName       String
+  artistId         String?
+  artist           Artist?            @relation(fields: [artistId], references: [id])
+  albumName        String?
+  albumId          String?
+  album            Album?             @relation(fields: [albumId], references: [id])
+  image            String
+  audioUrl         String
+  duration         String
+  year             String?
+  genre            String?
+  quality          String
+  language         String?
+  plays            Int                @default(0)
+  popularity       Int                @default(0)
+  isPodcast        Boolean            @default(false)
+  podcastShow      String?
+  isSpotify        Boolean            @default(false)
+  playlists        PlaylistSong[]
+  listeningHistory ListeningHistory[]
+}
+
+model Playlist {
+  id          String         @id @default(uuid())
+  name        String
+  description String
+  image       String
+  curator     String
+  type        String
+  country     String?
+  genre       String?
+  songs       PlaylistSong[]
+}
+
+model PlaylistSong {
+  id         String   @id @default(uuid())
+  playlistId String
+  playlist   Playlist @relation(fields: [playlistId], references: [id], onDelete: Cascade)
+  songId     String
+  song       Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+  addedAt    DateTime @default(now())
+
+  @@unique([playlistId, songId])
+}
+
+model ListeningHistory {
+  id       String   @id @default(uuid())
+  userId   String
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  songId   String
+  song     Song     @relation(fields: [songId], references: [id], onDelete: Cascade)
+  playedAt DateTime @default(now())
+}
