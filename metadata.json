@@ -1,6 +1,0 @@
-{
-  "name": "Melody",
-  "description": "A beautiful, premium dark-mode music streaming player with search, dynamic lyrics, audio controls, curated mixes, and high-quality streaming.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}
