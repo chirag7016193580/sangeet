@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Syne:wght@800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Syne", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* Custom scrollbar-free style */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body {
+  background-color: #08080a;
+  background-image: 
+    radial-gradient(circle at 80% 20%, #2a1a4a 0%, transparent 45%),
+    radial-gradient(circle at 20% 80%, #1a2a4a 0%, transparent 45%);
+  background-attachment: fixed;
+  color: white;
+  transition: background-color 0.3s ease;
+  font-family: var(--font-sans);
+}
+
+/* Custom Liquid Glass glow effects */
+.glow-accent {
+  text-shadow: 0 0 15px rgba(188, 138, 255, 0.4);
+}
+
+.bg-glow-accent {
+  box-shadow: 0 0 30px rgba(188, 138, 255, 0.15);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+body.theme-amoled { background-image: none !important; background-color: #000000 !important; }
